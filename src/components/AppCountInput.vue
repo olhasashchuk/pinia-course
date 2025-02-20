@@ -4,7 +4,10 @@ defineProps({
 });
 
 const emit = defineEmits(["update:modelValue", "input"]);
-const updateValue = (value) => emit("update:modelValue", value);
+const updateValue = (value) => {
+  if(value !== null) {
+    emit("update:modelValue", value)};
+  }
 </script>
 <template>
   <span>
@@ -14,7 +17,7 @@ const updateValue = (value) => emit("update:modelValue", value);
     >
       -
     </button>
-    <input :value="modelValue" type="number" min="0" @input="updateValue" />
+    <input :value="modelValue" type="number" min="0" @input="updateValue($event.target.value)" />
     <button
       class="bg-gray-200 px-2 rounded-r cursor-pointer"
       @click="updateValue(modelValue + 1)"
@@ -29,7 +32,9 @@ input[type="number"] {
   appearance: none;
   -moz-appearance: textfield;
   border: 1px solid gray;
-  @apply border-gray-500 w-10 text-center;
+  border-color: #6b7280; /* border-gray-500 */
+  width: 2.5rem; /* w-10 */
+  text-align: center; /* text-center */
 }
 button {
   border: 1px solid gray;
